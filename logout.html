@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تسجيل الخروج | شبكة النجم</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gradient bg-soft">
+  <div class="layout">
+    <header class="header">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="24" height="24" class="icon-star">
+            <path d="M12 2l2.9 6.8 7.1.6-5.3 4.6 1.7 7-6.4-3.9-6.4 3.9 1.7-7-5.3-4.6 7.1-.6L12 2z" fill="currentColor"/>
+          </svg>
+        </span>
+        <div class="brand-text">
+          <h1>شبكة النجم</h1>
+          <p class="subtitle">تم تسجيل خروجك</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="center">
+      <section class="card card-logout">
+        <h2 class="card-title">تم تسجيل خروجك بنجاح</h2>
+
+        <div class="stats-grid">
+          <div class="stat">
+            <span class="stat-label">مدة الجلسة</span>
+            <span class="stat-value">$(uptime)</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">إجمالي التحميل</span>
+            <span class="stat-value">$(bytes-in)</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">إجمالي الرفع</span>
+            <span class="stat-value">$(bytes-out)</span>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a href="$(link-login)" class="btn btn-primary btn-large">
+            <span class="btn-text">إعادة الدخول</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footnote">شكرًا لاستخدامك شبكة النجم</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

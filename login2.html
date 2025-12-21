@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>سايبر نت - واجهة الكروت</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0f17;
+  --panel:#0f1722;
+  --muted:#9aa4b2;
+  --accent1:#6EE7B7;
+  --accent2:#7C5CFF;
+  --accent3:#FF7AA2;
+  --card:#0f1a26;
+  --glass: rgba(255,255,255,0.03);
+  --glass-2: rgba(255,255,255,0.02);
+  --success:#22c55e;
+  --danger:#ff6b6b;
+  --shadow: 0 8px 30px rgba(2,6,23,0.6);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:'Cairo',sans-serif;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(124,92,255,0.08), transparent 8%), radial-gradient(900px 400px at 90% 90%, rgba(255,122,162,0.06), transparent 8%), var(--bg);
+  color:#e6eef8;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  gap:20px;
+  min-height:100vh;
+  padding:20px;
+}
+
+/* Container */
+.app{
+  width:420px;
+  max-width:100%;
+  border-radius:18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  box-shadow: var(--shadow);
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.03);
+}
+
+/* Header */
+.header{
+  padding:18px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background: linear-gradient(90deg, rgba(124,92,255,0.08), rgba(255,122,162,0.03));
+  border-bottom:1px solid rgba(255,255,255,0.02);
+}
+.logo{
+  width:56px;height:56px;
+  border-radius:12px;
+  background: linear-gradient(135deg,var(--accent2),var(--accent3));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  color:white;
+  font-size:18px;
+  box-shadow: 0 6px 18px rgba(124,92,255,0.12);
+}
+.hdr-text{flex:1}
+.hdr-text h1{margin:0;font-size:16px;font-weight:700;letter-spacing:0.2px}
+.hdr-text p{margin:0;margin-top:4px;color:var(--muted);font-size:12px}
+
+/* Nav */
+.nav{display:flex;gap:8px;padding:12px;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.02)}
+.tabs{display:flex;gap:8px;flex:1}
+.tab{padding:8px 12px;background:var(--glass);border-radius:10px;color:var(--muted);font-size:13px;cursor:pointer;border:1px solid rgba(255,255,255,0.02)}
+.tab.active{background: linear-gradient(90deg,var(--accent1),var(--accent2));color:#071124;font-weight:700;box-shadow: 0 8px 20px rgba(124,92,255,0.12);}
+
+/* Content area */
+.content{padding:16px;display:grid;gap:14px}
+
+/* Cards grid */
+.cards{display:grid;grid-template-columns:1fr;gap:12px}
+.card{background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border-radius:14px;padding:14px;border:1px solid rgba(255,255,255,0.03);box-shadow: 0 6px 18px rgba(2,6,23,0.5);}
+
+/* Package card style */
+.pkg{display:flex;gap:12px;align-items:center}
+.pkg .left{width:72px;height:72px;border-radius:12px;background: linear-gradient(135deg,var(--accent3),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:14px;flex-shrink:0}
+.pkg .body{flex:1}
+.pkg h3{margin:0;font-size:15px;font-weight:700}
+.pkg .price{margin-top:6px;font-size:18px;font-weight:700;color:var(--accent1)}
+.pkg .meta{margin-top:8px;color:var(--muted);font-size:13px;display:flex;gap:10px;flex-wrap:wrap}
+.pkg .actions{margin-top:10px;display:flex;gap:8px}
+.btn{padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);font-weight:600;cursor:pointer;font-size:13px}
+.btn.primary{background: linear-gradient(90deg,var(--accent2),var(--accent3));color:white;border:none;box-shadow: 0 8px 20px rgba(124,92,255,0.12)}
+
+/* Speed selection */
+.speeds{display:flex;flex-direction:column;gap:8px}
+.speed{padding:10px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(255,255,255,0.02);cursor:pointer}
+.speed.selected{background: linear-gradient(90deg,var(--accent1),var(--accent2));color:#071124;font-weight:700}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));text-align:center;border:1px solid rgba(255,255,255,0.02)}
+.stat h3{margin:0;font-size:18px}
+.stat p{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+/* Input card */
+input{background:var(--glass-2);color:#e6eef8;border:none;font-size:14px;outline:none}
+
+/* Responsive */
+@media (max-width:420px){.app{width:100%}.hdr-text h1{font-size:15px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">SN</div>
+    <div class="hdr-text">
+      <h1>سايبر نت</h1>
+      <p>شبكة لاسلكية متطورة — اتصال سريع وخدمة مميزة</p>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <div class="tabs">
+      <div class="tab active" data-page="home">الرئيسية</div>
+      <div class="tab" data-page="cards">أسعار الكروت</div>
+      <div class="tab" data-page="locations">مناطق البيع</div>
+      <div class="tab" data-page="scan">تفعيل الكرت</div>
+      <div class="tab" data-page="speed">اختيار السرعة</div>
+      <div class="tab" data-page="stats">الإحصائيات</div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <!-- Home Page -->
+    <section id="home" class="page" style="display:block">
+      <div class="card">
+        <h3>مرحبا بك في سايبر نت</h3>
+        <p class="muted">شبكة لاسلكية متطورة — اتصال سريع، جودة ممتازة</p>
+      </div>
+    </section>
+
+    <!-- Cards Page -->
+    <section id="cards" class="page" style="display:none">
+      <div class="cards">
+        <div class="card pkg">
+          <div class="left">10ريال</div>
+          <div class="body">
+            <h3>كرت 10 ريال</h3>
+            <div class="price">10 ريال</div>
+            <div class="meta">
+              <span>مدة الصلاحية: 1 يوم</span>
+              <span>سرعة: 5Mbps</span>
+            </div>
+            <div class="actions">
+              <button class="btn primary">شراء</button>
+              <button class="btn">تفاصيل</button>
+            </div>
+          </div>
+        </div>
+        <div class="card pkg">
+          <div class="left">25ريال</div>
+          <div class="body">
+            <h3>كرت 25 ريال</h3>
+            <div class="price">25 ريال</div>
+            <div class="meta">
+              <span>مدة الصلاحية: 3 أيام</span>
+              <span>سرعة: 10Mbps</span>
+            </div>
+            <div class="actions">
+              <button class="btn primary">شراء</button>
+              <button class="btn">تفاصيل</button>
+            </div>
+          </div>
+        </div>
+        <div class="card pkg">
+          <div class="left">50ريال</div>
+          <div class="body">
+            <h3>كرت 50 ريال</h3>
+            <div class="price">50 ريال</div>
+            <div class="meta">
+              <span>مدة الصلاحية: 7 أيام</span>
+              <span>سرعة: 20Mbps</span>
+            </div>
+            <div class="actions">
+              <button class="btn primary">شراء</button>
+              <button class="btn">تفاصيل</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Locations Page -->
+    <section id="locations" class="page" style="display:none">
+      <div class="cards">
+        <div class="card">
+          <h3>منطقة الحمراء</h3>
+          <p>العنوان: شارع الرئيسي، الحمراء</p>
+        </div>
+        <div class="card">
+          <h3>منطقة الشهداء</h3>
+          <p>العنوان: شارع 14، الشهداء</p>
+        </div>
+        <div class="card">
+          <h3>منطقة اليرموك</h3>
+          <p>العنوان: السوق المركزي، اليرموك</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scan/Activate Card -->
+    <section id="scan" class="page" style="display:none">
+      <div class="card" style="text-align:center;">
+        <p>أدخل رقم الكرت لتفعيله:</p>
+        <input type="text" id="cardNumber" placeholder="رقم الكرت">
+        <br><br>
+        <button class="btn primary" onclick="activateCard()">تفعيل الكرت</button>
+        <p id="cardMessage" style="margin-top:12px; color:var(--accent1); font-weight:700;"></p>
+      </div>
+    </section>
+
+    <!-- Speed Page -->
+    <section id="speed" class="page" style="display:none">
+      <div class="speeds">
+        <div class="speed" onclick="selectSpeed(this)">5 Mbps</div>
+        <div class="speed" onclick="selectSpeed(this)">10 Mbps</div>
+        <div class="speed selected" onclick="selectSpeed(this)">20 Mbps</div>
+        <div class="speed" onclick="selectSpeed(this)">50 Mbps</div>
+      </div>
+    </section>
+
+    <!-- Stats Page -->
+    <section id="stats" class="page" style="display:none">
+      <div class="stats">
+        <div class="stat">
+          <h3>1200</h3>
+          <p>المشتركين</p>
+        </div>
+        <div class="stat">
+          <h3>350</h3>
+          <p>الكروت المباعة اليوم</p>
+        </div>
+        <div class="stat">
+          <h3>85%</h3>
+          <p>استخدام السرعة القصوى</p>
+        </div>
+        <div class="stat">
+          <h3>50GB</h3>
+          <p>إجمالي البيانات المستخدمة</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+// Navigation
+const tabs = document.querySelectorAll('.tab');
+const pages = document.querySelectorAll('.page');
+tabs.forEach(t => {
+  t.addEventListener('click', () => {
+    tabs.forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    const page = t.getAttribute('data-page');
+    openPage(page);
+  });
+});
+
+function openPage(id){
+  pages.forEach(p => p.style.display = (p.id === id ? 'block' : 'none'));
+}
+
+// Speed selection
+function selectSpeed(el){
+  document.querySelectorAll('.speed').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// Activate card
+function activateCard(){
+  const num = document.getElementById('cardNumber').value.trim();
+  const msg = document.getElementById('cardMessage');
+  if(num.length===0){
+    msg.style.color='var(--danger)';
+    msg.textContent = "يرجى إدخال رقم الكرت!";
+  } else {
+    msg.style.color='var(--success)';
+    msg.textContent = "تم تفعيل الكرت بنجاح: " + num;
+  }
+}
+
+// Default
+openPage('home');
+</script>
+</body>
+</html>

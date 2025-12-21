@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تسجيل الدخول | شبكة النجم</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- ملاحظة: يفضل وضع هذه الصفحات مباشرة في مجلد hotspot -->
+</head>
+<body class="bg-gradient bg-stars">
+  <div class="layout">
+    <!-- رأس الصفحة -->
+    <header class="header">
+      <div class="brand">
+        <!-- أيقونة مصغّرة للشبكة (SVG خفيف) -->
+        <span class="brand-icon" aria-hidden="true">
+          <!-- نجمة أنيقة -->
+          <svg viewBox="0 0 24 24" width="24" height="24" class="icon-star">
+            <path d="M12 2l2.9 6.8 7.1.6-5.3 4.6 1.7 7-6.4-3.9-6.4 3.9 1.7-7-5.3-4.6 7.1-.6L12 2z" fill="currentColor"/>
+          </svg>
+        </span>
+        <div class="brand-text">
+          <h1>شبكة النجم</h1>
+          <p class="subtitle">خدمة إنترنت طلابية</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- بطاقة تسجيل الدخول -->
+    <main class="center">
+      <section class="card card-login">
+        <h2 class="card-title">تسجيل الدخول إلى شبكة الإنترنت</h2>
+        <p class="card-desc">يرجى إدخال بيانات الكرت بشكل صحيح</p>
+
+        <!-- منطقة عرض أخطاء MikroTik -->
+        <!-- سيتم حقن قيمة $(error) عند وجود خطأ من الراوتر -->
+        <div class="alert" id="error-box">
+          <!-- MikroTik error -->
+          $(error)
+        </div>
+
+        <!-- نموذج المصادقة - هام: action يجب أن يكون $(link-login) وأسماء الحقول username / password -->
+        <form class="form" id="login-form" action="$(link-login)" method="post" autocomplete="on" novalidate>
+          <div class="form-group">
+            <label for="username" class="label">اسم المستخدم / رقم الكرت</label>
+            <div class="input-wrap">
+              <!-- $(username) قد يملأه MikroTik تلقائياً عند إعادة التوجيه -->
+              <input
+                id="username"
+                name="username"
+                type="text"
+                class="input"
+                placeholder="أدخل رقم الكرت"
+                value="$(username)"
+                required
+                minlength="3"
+                aria-required="true"
+              />
+              <span class="focus-glow"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="label">كلمة المرور</label>
+            <div class="input-wrap">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                class="input"
+                placeholder="أدخل كلمة المرور"
+                required
+                minlength="3"
+                aria-required="true"
+              />
+              <button type="button" class="btn-icon toggle-pass" aria-label="إظهار/إخفاء كلمة المرور" title="إظهار/إخفاء">
+                <!-- عين بسيطة -->
+                <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/></svg>
+              </button>
+              <span class="focus-glow"></span>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn btn-primary btn-large" id="login-btn">
+              <span class="btn-text">تسجيل الدخول</span>
+              <span class="btn-loader" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <div class="helper">
+            <a href="#" class="link" id="usage-help">تعليمات الاستخدام</a>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <!-- تذييل بسيط -->
+    <footer class="footer">
+      <p class="footnote">© شبكة النجم — بوابة إنترنت طلابية</p>
+    </footer>
+  </div>
+
+  <!-- نافذة تعليمات بسيطة -->
+  <div class="modal" id="help-modal" aria-hidden="true" role="dialog" aria-labelledby="help-title">
+    <div class="modal-backdrop"></div>
+    <div class="modal-container">
+      <h3 class="modal-title" id="help-title">تعليمات الاستخدام</h3>
+      <ul class="modal-list">
+        <li><strong>الخطوة 1:</strong> أدخل رقم الكرت في خانة اسم المستخدم.</li>
+        <li><strong>الخطوة 2:</strong> أدخل كلمة المرور المطابقة للكرت.</li>
+        <li><strong>الخطوة 3:</strong> اضغط زر "تسجيل الدخول" وانتظر لحظات.</li>
+        <li><strong>ملاحظة:</strong> في حال وجود خطأ، ستظهر رسالة أعلى النموذج.</li>
+      </ul>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="close-help">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

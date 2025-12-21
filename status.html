@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>حالة المستخدم | شبكة النجم</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gradient bg-waves">
+  <div class="layout">
+    <header class="header">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="24" height="24" class="icon-star">
+            <path d="M12 2l2.9 6.8 7.1.6-5.3 4.6 1.7 7-6.4-3.9-6.4 3.9 1.7-7-5.3-4.6 7.1-.6L12 2z" fill="currentColor"/>
+          </svg>
+        </span>
+        <div class="brand-text">
+          <h1>شبكة النجم</h1>
+          <p class="subtitle">حالة الجلسة</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="center">
+      <section class="card card-status">
+        <h2 class="card-title">مرحبًا <span class="username">$(username)</span></h2>
+
+        <div class="stats-grid">
+          <div class="stat">
+            <span class="stat-label">الوقت المتبقي</span>
+            <span class="stat-value time">$(session-time-left)</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">البيانات المستهلكة (تحميل)</span>
+            <span class="stat-value data">$(bytes-in)</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">البيانات المستهلكة (رفع)</span>
+            <span class="stat-value data">$(bytes-out)</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">عنوان IP</span>
+            <span class="stat-value">$(ip)</span>
+          </div>
+        </div>
+
+        <div class="actions">
+          <!-- رابط الخروج القياسي من MikroTik -->
+          <a href="$(link-logout)" class="btn btn-danger btn-large">
+            <span class="btn-text">تسجيل الخروج</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footnote">اتصالك آمن — يرجى تسجيل الخروج عند الانتهاء</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

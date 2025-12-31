@@ -3,26 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>المهندس نت — واجهة احترافية مع تبديل الثيم</title>
+  <title>شبكة المهندس نت — تسجيل الدخول</title>
 
-  <!-- Fonts and Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     /* ===========================
-       Theme variables for Dark and Light
+       التحكم في الألوان والثيم
        =========================== */
-    :root{
+    :root {
       --card-radius: 16px;
       --shadow-1: 0 8px 30px rgba(2,6,23,0.6);
       --glass-border: rgba(255,255,255,0.06);
-      --max-width: 1100px;
-      --transition-fast: 180ms;
-    }
-
-    /* Dark theme defaults */
-    :root {
+      --max-width: 1200px;
+      --transition-fast: 250ms;
+      
+      /* Dark theme (Default) */
       --bg-1: #0b0f2a;
       --bg-2: #0f1533;
       --glass: rgba(255,255,255,0.06);
@@ -38,7 +35,6 @@
       --btn-ghost-border: rgba(255,255,255,0.06);
     }
 
-    /* Light theme overrides when [data-theme="light"] on html */
     html[data-theme="light"] {
       --bg-1: #f6f8fb;
       --bg-2: #eef3fb;
@@ -51,769 +47,373 @@
       --muted: rgba(0,0,0,0.6);
       --text: #0b1220;
       --card-bg: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95));
-      --panel-bg: linear-gradient(180deg, rgba(106,140,255,0.06), rgba(155,89,182,0.03));
       --btn-ghost-border: rgba(0,0,0,0.08);
     }
 
     /* ===========================
-       Base Styles
+       التنسيقات العامة
        =========================== */
     *{box-sizing:border-box}
-    html,body{height:100%}
+    html,body{height:100%; margin:0; padding:0;}
     body{
-      margin:0;
       font-family:'Cairo',sans-serif;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(106,140,255,0.06), transparent 10%),
+      background: radial-gradient(circle at 10% 10%, rgba(106,140,255,0.05), transparent 25%),
                   linear-gradient(180deg,var(--bg-1),var(--bg-2));
       color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.45;
+      line-height:1.6;
       direction:rtl;
       scroll-behavior:smooth;
-      padding-top:72px; /* navbar space */
-      transition: background var(--transition-fast) ease, color var(--transition-fast) ease;
+      padding-top:80px;
+      transition: background var(--transition-fast) ease;
     }
 
     .container{
-      width:100%;
+      width:95%;
       max-width:var(--max-width);
       margin:0 auto;
-      padding:16px;
-
-      transition: all var(--transition-fast) ease;
+      padding:10px;
     }
-
-    .muted{color:var(--muted)}
-    .center{text-align:center}
 
     .btn{
-      display:inline-flex;align-items:center;gap:10px;
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
       background:linear-gradient(90deg,var(--accent-1),#ff3b6b);
-      color:#fff;padding:12px 18px;border-radius:12px;border:none;
-      cursor:pointer;font-weight:700;box-shadow:0 8px 30px rgba(255,75,75,0.12);
-      transition:transform var(--transition-fast) ease,box-shadow var(--transition-fast) ease,opacity var(--transition-fast) ease;
+      color:#fff;padding:12px 20px;border-radius:12px;border:none;
+      cursor:pointer;font-weight:700;
+      transition: 0.3s;
     }
-    .btn.secondary{
-      background:linear-gradient(90deg,#4b6bff,var(--accent-2));
-      box-shadow:0 8px 30px rgba(106,140,255,0.08);
-    }
-    .btn.ghost{
-      background:transparent;border:1px solid var(--btn-ghost-border);color:var(--muted);
-      box-shadow:none;padding:10px 14px;border-radius:10px;
-    }
-    .btn:hover{transform:translateY(-4px)}
-
-    a{color:inherit;text-decoration:none}
+    .btn:hover{transform:translateY(-3px); filter:brightness(1.1);}
+    
+    .btn.secondary{ background:linear-gradient(90deg,#4b6bff,var(--accent-2)); }
+    .btn.ghost{ background:transparent; border:1px solid var(--btn-ghost-border); color:var(--text); }
 
     /* ===========================
-       Navbar
+       Header & Navbar
        =========================== */
     .navbar{
       position:fixed;top:0;left:0;right:0;height:72px;
-      display:flex;align-items:center;justify-content:center;
-      z-index:9999;padding:0 20px;
-      background:linear-gradient(180deg, rgba(2,6,23,0.55), rgba(2,6,23,0.35));
-      backdrop-filter: blur(8px);
-      border-bottom:1px solid rgba(255,255,255,0.03);
-      box-shadow:0 6px 30px rgba(2,6,23,0.6);
-      transition: background var(--transition-fast) ease, border-color var(--transition-fast) ease;
+      display:flex;align-items:center;z-index:9999;
+      background: rgba(15, 21, 51, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom:1px solid var(--glass-border);
     }
-    /* Light theme navbar tweak */
-    html[data-theme="light"] .navbar{
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));
-      border-bottom:1px solid rgba(0,0,0,0.06);
-      box-shadow:0 6px 30px rgba(2,6,23,0.06);
+    html[data-theme="light"] .navbar { background: rgba(255, 255, 255, 0.85); }
+
+    .nav-inner{width:100%; max-width:var(--max-width); margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:0 15px;}
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{width:45px;height:45px;background:var(--accent-2); border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:900; color:#fff;}
+
+    /* ===========================
+       Hero & Login Card (Responsive)
+       =========================== */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 20px;
+      margin-bottom: 40px;
     }
 
-    .nav-inner{width:100%;max-width:var(--max-width);display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand .logo{
-      width:48px;height:48px;border-radius:12px;
-      background:linear-gradient(135deg,var(--accent-2),var(--accent-3));
-      display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;
-      box-shadow:0 6px 20px rgba(106,140,255,0.12);
+    .hero-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 30px;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-1);
     }
-    .brand h4{margin:0;font-size:18px}
-    .nav-links{display:flex;gap:18px;align-items:center}
-    .nav-links a{padding:8px 12px;border-radius:10px;font-weight:600;color:var(--muted);transition:background var(--transition-fast)}
-    .nav-links a.active{background:linear-gradient(90deg, rgba(255,107,53,0.12), rgba(106,140,255,0.06));color:var(--text)}
-    .nav-actions{display:flex;gap:10px;align-items:center}
 
-    /* Theme toggle button */
-    .theme-toggle{
-      display:inline-flex;align-items:center;gap:8px;padding:8px;border-radius:10px;border:1px solid var(--btn-ghost-border);
-      background:transparent;color:var(--muted);cursor:pointer;
-      transition:background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    .login-section {
+      background: var(--glass);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px 0;
     }
-    .theme-toggle:hover{transform:translateY(-3px)}
-    .theme-toggle .icon{
-      width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(90deg,var(--accent-2),var(--accent-3));color:#fff;font-size:14px;
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      background: var(--bg-1);
+      color: var(--text);
+      font-size: 18px;
+      text-align: center;
+      outline: none;
+    }
+
+    /* Speed Selector */
+    .speed-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .speed-btn {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-2);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .speed-btn.active {
+      background: var(--accent-1);
+      color: #fff;
+      border-color: var(--accent-1);
+    }
+
+    /* Stats Panel */
+    .hero-panel {
+      background: var(--panel-bg);
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .stat-box {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .stat-item {
+      background: var(--glass);
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
     }
 
     /* ===========================
-       Hero Section
+       Price Table (Responsive Wrap)
        =========================== */
-    .hero{
-      margin-top:8px;
-      display:grid;
-      grid-template-columns: 1fr 420px;
-      gap:28px;
-      align-items:center;
-      padding:6px;
-    }
-    .hero-card{
-      background:var(--card-bg);
-      border-radius:20px;padding:28px;border:1px solid var(--glass-border);
-      box-shadow:var(--shadow-1);
-      overflow:hidden;transition:background var(--transition-fast),border-color var(--transition-fast);
-    }
-    .hero-title{font-size:34px;font-weight:800;color:var(--accent-1);margin-bottom:8px}
-    .hero-sub{font-size:15px;color:var(--muted);margin-bottom:18px}
-    .hero-stats{display:flex;gap:12px;margin-top:18px}
-    .stat{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:12px;border-radius:12px;flex:1;text-align:center;border:1px solid rgba(255,255,255,0.03)
-    }
-    .stat h3{margin:0;font-size:18px;color:var(--text)}
-    .stat p{margin:6px 0 0;color:var(--muted);font-size:13px}
-
-    .hero-panel{
-      background:var(--panel-bg);
-      border-radius:18px;padding:18px;border:1px solid rgba(255,255,255,0.04);
-      box-shadow:0 10px 30px rgba(2,6,23,0.6);
-      transition:background var(--transition-fast),border-color var(--transition-fast);
+    .section {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 25px;
+      margin-top: 30px;
+      border: 1px solid var(--glass-border);
+      overflow: hidden;
     }
 
-    .wifi-big{display:flex;align-items:center;gap:12px}
-    .wifi-icon{
-      width:72px;height:72px;border-radius:14px;background:linear-gradient(135deg,var(--accent-1),#ff3b6b);
-      display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;box-shadow:0 8px 30px rgba(255,75,75,0.12)
+    .table-container {
+      width: 100%;
+      overflow-x: auto; /* يسمح بالتمرير الجانبي على الجوال */
     }
-    .wifi-info h4{margin:0;font-size:18px}
-    .wifi-info p{margin:6px 0 0;color:var(--muted);font-size:13px}
 
-    .quick-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
-    .action{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:12px;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.03);
-      cursor:pointer;transition:transform var(--transition-fast),background var(--transition-fast);
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
     }
-    .action:hover{transform:translateY(-6px);background:linear-gradient(90deg, rgba(255,107,53,0.08), rgba(106,140,255,0.06))}
-    .action i{font-size:20px;margin-bottom:8px;display:block}
+
+    th {
+      background: var(--accent-2);
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+    }
+
+    td {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid var(--glass-border);
+    }
 
     /* ===========================
-       Cards and Inputs
+       Media Queries (الجوال)
        =========================== */
-    .cards{
-      display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px;
-    }
-    .card{
-      background:var(--glass);padding:14px;border-radius:14px;border:1px solid var(--glass-border);
-      box-shadow:0 8px 30px rgba(2,6,23,0.5);
-    }
-    .input-card{display:flex;gap:10px;align-items:center}
-    .input-card input{
-      flex:1;background:transparent;border:none;color:var(--text);padding:10px;font-size:15px;outline:none;text-align:center
-    }
-.speed-grid {
-  display: flex;
-  flex-direction: row;
-  justify-content: center; /* centers items horizontally */
-  align-items: center;     /* centers items vertically */
-  gap: 8px;
-  font-family: 'Cairo', sans-serif;
-}
-
-    .speed-btn{
-      background:#fff;color:#222;padding:10px;border-radius:10px;border:none;font-weight:700;cursor:pointer;
-      transition:transform .12s ease,box-shadow .12s;
-    }
-    .speed-btn.active{background:linear-gradient(90deg,var(--accent-1),#ff3b6b);color:#fff;box-shadow:0 8px 20px rgba(255,75,75,0.12)}
-    .toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-
-    .bottom-menu{display:flex;gap:12px;margin-top:18px}
-    .menu-item{
-      flex:1;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      text-align:center;border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform var(--transition-fast);
-    }
-    .menu-item:hover{transform:translateY(-6px)}
-
-    /* ===========================
-       Prices Section
-       =========================== */
-    .section{
-      margin-top:36px;padding:28px;border-radius:18px;background:var(--card-bg);
-      border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(2,6,23,0.6)
-    }
-    .section h2{margin:0 0 12px;color:var(--accent-2)}
-    .controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
-    .search{
-      flex:1;display:flex;align-items:center;background:rgba(255,255,255,0.03);padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)
-    }
-    .search input{background:transparent;border:none;outline:none;color:var(--text);padding:8px;width:100%}
-    .table-wrap{overflow:auto;border-radius:12px}
-    table.prices{width:100%;border-collapse:collapse;min-width:720px}
-    table.prices th, table.prices td{padding:12px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.04)}
-    table.prices th{background:linear-gradient(90deg,var(--accent-3),var(--accent-2));color:#fff;font-weight:700}
-    .tag{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);font-weight:700}
-
-    /* ===========================
-       Places Section
-       =========================== */
-    .places-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-    .place{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 30px rgba(2,6,23,0.5);
-      transition:transform var(--transition-fast);
-    }
-    .place:hover{transform:translateY(-8px)}
-    .place h4{margin:0 0 6px}
-    .place p{margin:0;color:var(--muted);font-size:13px}
-    .place .meta{display:flex;gap:8px;margin-top:10px;align-items:center}
-
-    /* Modal */
-    .modal-backdrop{
-      position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:99999;
-    }
-    .modal{
-      width:100%;max-width:720px;background:var(--bg-1);padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,0.04);
-      box-shadow:0 20px 60px rgba(2,6,23,0.8);
-    }
-    .modal .close{float:left;cursor:pointer;color:var(--muted)}
-
-    footer.site-footer{margin-top:40px;padding:20px;text-align:center;color:var(--muted);font-size:13px}
-
-    /* Responsive */
-    @media (max-width:1100px){
-      .hero{grid-template-columns:1fr 360px}
-    }
-    @media (max-width:900px){
-      .hero{grid-template-columns:1fr}
-      .cards{grid-template-columns:1fr}
-      .container{padding:2px}
-    }
-    @media (max-width:520px){
-      .nav-links{display:none}
-      .brand h4{display:none}
-      .hero-title{font-size:26px}
-      .hero-sub{font-size:14px}
-      .wifi-icon{width:56px;height:56px}
+    @media (max-width: 992px) {
+      .hero { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
     }
 
-    .fade-in{animation:fadeIn .9s ease both}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    @media (max-width: 480px) {
+      .hero-card { padding: 15px; }
+      .brand h4 { font-size: 14px; }
+      .logo { width: 35px; height: 35px; }
+      .speed-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .fade-in { animation: fadeIn 0.8s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="navbar" role="navigation" aria-label="Main Navigation">
+  <nav class="navbar">
     <div class="nav-inner">
       <div class="brand">
         <div class="logo">SN</div>
         <div>
-          <h4>المهندس نت</h4>
-          <div class="muted" style="font-size:12px">شبكة لاسلكية متطورة</div>
+          <h4 style="margin:0">المهندس نت</h4>
+          <span style="font-size:10px; opacity:0.7">إنترنت بلا حدود</span>
         </div>
       </div>
-
-      <div class="nav-links" id="navLinks">
-        <a href="#home" class="nav-link active">الرئيسية</a>
-        <a href="#prices" class="nav-link">أسعار الكروت</a>
-        <a href="#places" class="nav-link">أماكن البيع</a>
-      </div>
-
-      <div class="nav-actions">
-        <button class="btn" id="ctaSubscribe"><i class="fa-solid fa-bolt"></i> اشترك الآن</button>
-
-        <!-- Theme Toggle Button -->
-        <button class="theme-toggle" id="themeToggle" aria-pressed="false" title="تبديل الثيم">
-          <span class="icon" id="themeIcon"><i class="fa-solid fa-moon"></i></span>
-          <span id="themeLabel" class="muted" style="font-weight:700">داكن</span>
+      <div class="nav-actions" style="display:flex; gap:10px;">
+        <button class="theme-toggle btn ghost" id="themeToggle" style="padding:8px 12px">
+          <i class="fa-solid fa-moon"></i>
         </button>
-
-        <button class="btn ghost" id="openMenu"><i class="fa-solid fa-bars"></i></button>
+        <button class="btn" style="padding:8px 15px; font-size:12px"><i class="fa-solid fa-headset"></i> الدعم</button>
       </div>
     </div>
   </nav>
 
-  <!-- MAIN CONTAINER -->
   <main class="container">
-
-    <!-- HERO -->
-    <section id="home" class="hero">
+    
+    <section class="hero">
       <div class="hero-card fade-in">
-        <div class="hero-title">اتصال أسرع. تجربة أفضل. شبكة موثوقة.</div>
-        <div class="hero-sub">احصل على باقات مرنة تناسب احتياجاتك — سرعات عالية، تغطية واسعة، ودعم فني متميز.</div>
+        <h2 style="color:var(--accent-1); margin-top:0">أهلاً بك في عالم السرعة</h2>
+        <p style="opacity:0.8">سجل دخولك الآن باستخدام رقم الكرت الخاص بك واستمتع بأفضل تجربة تصفح.</p>
+        
+        <div class="login-section">
+          <div class="input-group">
+            <label style="font-weight:700">ادخل رقم الكرت:</label>
+            <input type="text" id="cardInput" placeholder="0000-0000" />
+            <button class="btn" id="loginBtn" style="width:100%; font-size:18px">
+              <i class="fa-solid fa-right-to-bracket"></i> دخول الإنترنت
+            </button>
+          </div>
+        </div>
 
-        <div class="row" style="margin-top:18px">
-          <div class="col">
-            <div class="cards">
-              <!-- Input Card -->
-              <div class="card">
-                <div style="font-weight:700;margin-bottom:8px">تسجيل الدخول للكرت</div>
-                <div class="input-card">
-                  <i class="fa-solid fa-clipboard-list" style="color:var(--accent-1)"></i>
-                  <input id="cardInput" placeholder="ادخل رقم الكرت هنا" aria-label="رقم الكرت" >
-                  <button class="btn" id="loginBtn">دخول الإنترنت</button>
-                </div>
-              </div>
-
-              <!-- Speed Card -->
-              <div class="card">
-                <div style="font-weight:700;margin-bottom:8px">اختار سرعة</div>
-                <div class="speed-grid" id="speedGrid">
-                  <button class="speed-btn">سرعة اقتصادية</button>
-                  <button class="speed-btn">كرت هوتسبوت</button>
+        <div style="margin-top:20px">
+          <label style="font-weight:700">تخصيص السرعة:</label>
+          <div class="speed-grid" id="speedGrid">
+ 
+                <button class="speed-btn">سرعة اقتصادية</button>
+                  <button class="speed-btn">كرت مشتركين</button>
                   <button class="speed-btn active">سرعة متوسطة</button>
                   <button class="speed-btn">سرعة عادية</button>
                   <button class="speed-btn">سرعة عالية جداً</button>
                   <button class="speed-btn">سرعة عالية</button>
-                </div>
-                <div style="margin-top:12px" class="muted">● تم اختيار: <span id="selectedSpeed" style="font-weight:800;color:var(--accent-1)">سرعة متوسطة</span></div>
-              </div>
-
-              <!-- Toggle Card -->
-              <div class="card">
-                <div style="font-weight:700;margin-bottom:8px">خيارات</div>
-                <div class="toggle-row">
-                  <div>
-                    <div style="font-weight:700">إيقاف تحديثات جوجل</div>
-                    <div class="muted" style="font-size:13px">لمنع استهلاك الباقة</div>
-                  </div>
-                  <label style="display:inline-flex;align-items:center;gap:8px">
-                    <input id="toggleUpdates" type="checkbox" checked style="width:0;height:0;opacity:0">
-                    <span style="width:46px;height:26px;background:#ccc;border-radius:999px;display:inline-block;position:relative">
-                      <span style="position:absolute;left:4px;top:4px;width:18px;height:18px;background:#fff;border-radius:50%;transition:transform .18s" id="toggleKnob"></span>
-                    </span>
-                  </label>
-                </div>
-              </div>
-            </div>
           </div>
-
-          <!-- Right Panel -->
-          <aside class="hero-panel">
-            <div class="wifi-big">
-              <div class="wifi-icon"><i class="fa-solid fa-wifi"></i></div>
-              <div class="wifi-info">
-                <h4>شبكة المهندس نت</h4>
-                <p class="muted">تغطية واسعة وسرعات مستقرة مع دعم فني 24/7</p>
-              </div>
-            </div>
-
-            <div class="quick-actions" style="margin-top:16px">
-              <div class="action" data-action="info"><i class="fa-solid fa-circle-info"></i>معلومات</div>
-              <div class="action" data-action="whatsapp"><i class="fa-brands fa-whatsapp"></i>واتساب</div>
-              <div class="action" data-action="call"><i class="fa-solid fa-phone"></i>اتصال</div>
-            </div>
-
-            <div style="margin-top:16px" class="muted">احصائيات سريعة</div>
-            <div class="hero-stats">
-              <div class="stat">
-                <h3>99.9%</h3>
-                <p class="muted">استقرار الشبكة</p>
-              </div>
-              <div class="stat">
-                <h3>1ms</h3>
-                <p class="muted">زمن الاستجابة</p>
-              </div>
-              <div class="stat">
-                <h3>24/7</h3>
-                <p class="muted">دعم فني</p>
-              </div>
-            </div>
-          </aside>
-        </div>
-
-        <div class="bottom-menu">
-          <div class="menu-item" onclick="scrollToSection('places')"><i class="fa-solid fa-map-marker-alt" style="background:#e67e22;padding:8px;border-radius:8px"></i> أماكن البيع</div>
-          <div class="menu-item" onclick="scrollToSection('prices')"><i class="fa-solid fa-dollar-sign" style="background:#8e44ad;padding:8px;border-radius:8px"></i> أسعار الكروت</div>
-          <div class="menu-item" onclick="document.getElementById('ctaSubscribe').click()"><i class="fa-solid fa-bell" style="background:#27ae60;padding:8px;border-radius:8px"></i> اشعارات العروض</div>
         </div>
       </div>
 
-      <!-- Hero Visual / Banner -->
-      <div class="hero-panel fade-in" aria-hidden="true" style="display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center">
-        <div style="width:100%;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.04)">
-          <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=900&q=60" alt="banner" style="width:100%;display:block;filter:contrast(1.05)brightness(0.85)">
+      <div class="hero-panel fade-in" style="animation-delay: 0.2s">
+        <div style="text-align:center">
+          <i class="fa-solid fa-wifi" style="font-size:40px; color:var(--accent-1)"></i>
+          <h3>حالة الشبكة</h3>
+          <p style="color:var(--success); font-weight:700"><i class="fa-solid fa-circle-check"></i> متصل - ممتاز</p>
         </div>
-        <div style="width:100%;display:flex;gap:10px">
-          <button class="btn secondary" onclick="scrollToSection('prices')"><i class="fa-solid fa-tags"></i> عرض الباقات</button>
-          <button class="btn ghost" onclick="scrollToSection('places')"><i class="fa-solid fa-map-location-dot"></i> العثور على أقرب فرع</button>
+        
+        <div class="stat-box">
+          <div class="stat-item">
+            <div style="font-size:18px; font-weight:900">1ms</div>
+            <div style="font-size:10px; opacity:0.7">البنج</div>
+          </div>
+          <div class="stat-item">
+            <div style="font-size:18px; font-weight:900">100%</div>
+            <div style="font-size:10px; opacity:0.7">التغطية</div>
+          </div>
+          <div class="stat-item">
+            <div style="font-size:18px; font-weight:900">24h</div>
+            <div style="font-size:10px; opacity:0.7">الدعم</div>
+          </div>
+        </div>
+
+        <div style="margin-top:25px; border-top:1px solid var(--glass-border); padding-top:15px">
+          <h4 style="margin-bottom:10px">روابط سريعة</h4>
+          <button class="btn secondary ghost" style="width:100%; margin-bottom:10px" onclick="window.open('https://wa.me/967770000000')">
+            <i class="fa-brands fa-whatsapp"></i> خدمة العملاء واتساب
+          </button>
+          <button class="btn ghost" style="width:100%" onclick="location.href='#prices'">
+            <i class="fa-solid fa-tags"></i> قائمة الأسعار الجديدة
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- PRICES SECTION -->
-    <section id="prices" class="section" aria-labelledby="pricesTitle">
-      <h2 id="pricesTitle">أسعار الكروت</h2>
-
-      <div class="controls">
-        <div class="search">
-          <i class="fa-solid fa-magnifying-glass" style="margin-left:8px;color:var(--muted)"></i>
-          <input id="searchInput" placeholder="ابحث عن سعر أو حجم أو صلاحية" aria-label="بحث">
-        </div>
-
-        <div style="display:flex;gap:8px">
-          <select id="filterValidity" style="padding:8px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--text)">
-            <option value="">كل الصلاحيات</option>
-            <option value="يوم واحد">يوم واحد</option>
-            <option value="أسبوع">أسبوع</option>
-            <option value="شهر">شهر</option>
-          </select>
-          <select id="sortBy" style="padding:8px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--text)">
-            <option value="default">ترتيب افتراضي</option>
-            <option value="price-asc">السعر تصاعدي</option>
-            <option value="price-desc">السعر تنازلي</option>
-            <option value="size-asc">الحجم تصاعدي</option>
-            <option value="size-desc">الحجم تنازلي</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="table-wrap">
-        <table class="prices" id="pricesTable" role="table" aria-label="جدول أسعار الكروت">
+    <section id="prices" class="section fade-in">
+      <h2 style="margin-top:0"><i class="fa-solid fa-cart-shopping"></i> أسعار باقات الكروت الجديدة</h2>
+      <p style="opacity:0.7">اختر الباقة التي تناسب استهلاكك</p>
+      
+      <div class="table-container">
+        <table>
           <thead>
             <tr>
-              <th>الباقة</th>
-              <th>سعر الكرت</th>
+              <th>اسم الباقة</th>
+              <th>السعر (ريال)</th>
               <th>الصلاحية</th>
-              <th>الحجم</th>
-              <th>الوصف</th>
+              <th>التحميل</th>
+              <th>المميزات</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- Rows injected by JS -->
-          </tbody>
+          <tbody id="pricesBody">
+            </tbody>
         </table>
       </div>
     </section>
 
-    <!-- PLACES SECTION -->
-    <section id="places" class="section" aria-labelledby="placesTitle">
-      <h2 id="placesTitle">أماكن البيع</h2>
-
-      <div class="places-grid" id="placesGrid">
-        <!-- Place cards injected by JS -->
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-    
-
-      </strong>  برمجة <strong style="color:var(--accent-1)">المهندس : أكرم فؤاد الصالحي</strong>
-      <div style="margin-top:8px;color:var(--muted)">© جميع الحقوق محفوظة 2025</div>
+    <footer style="text-align:center; padding:40px 0; opacity:0.7">
+      <p>برمجة وتطوير المهندس: <strong>أكرم فؤاد الصالحي</strong></p>
+      <p style="font-size:12px">© 2025 جميع الحقوق محفوظة لشبكة المهندس نت</p>
     </footer>
+
   </main>
 
-  <!-- Modal for Place Details -->
-  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal" role="document" aria-labelledby="modalTitle">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <h3 id="modalTitle">تفاصيل المكان</h3>
-        <div class="close" id="closeModal" title="إغلاق"><i class="fa-solid fa-xmark"></i></div>
-      </div>
-      <div id="modalBody" style="margin-top:12px;color:var(--muted)"></div>
-      <div style="margin-top:16px;display:flex;gap:10px;justify-content:flex-end">
-        <button class="btn secondary" id="modalNavigate"><i class="fa-solid fa-location-dot"></i> الاتجاه للمكان</button>
-        <button class="btn ghost" id="modalContact"><i class="fa-solid fa-phone"></i> اتصل بالمكان</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- SCRIPT -->
   <script>
-    /***********************************************
-     * Data Models
-     ***********************************************/
+    // بيانات الكروت الاحترافية المحدثة
     const pricesData = [
-      { id:1, name:'باقة يومية صغيرة', price:500, validity:'يوم واحد', size:'2 جيجا', desc:'تصفح خفيف ومحادثات' },
-      { id:2, name:'باقة أسبوعية', price:1500, validity:'أسبوع', size:'10 جيجا', desc:'تصفح ومشاهدة فيديوهات قصيرة' },
-      { id:3, name:'باقة شهرية', price:5000, validity:'شهر', size:'50 جيجا', desc:'استخدام مكثف وبث عالي الجودة' },
-      { id:4, name:'باقة ليلية', price:1200, validity:'أسبوع', size:'30 جيجا', desc:'سرعات عالية ليلاً' },
-      { id:5, name:'باقة مشاركة', price:2000, validity:'شهر', size:'80 جيجا', desc:'مشاركة بين عدة مستخدمين' },
-      { id:6, name:'باقة سريعة', price:8000, validity:'شهر', size:'200 جيجا', desc:'سرعات فائقة للألعاب والبث' }
+      { name: 'الباقة اليومية', price: '200', time: '24 ساعة', size: '500MB', feature: 'تصفح خفيف' },
+      { name: 'باقة التوفير', price: '500', time: '3 أيام', size: '1.5GB', feature: 'تواصل اجتماعي' },
+      { name: 'الباقة الأسبوعية', price: '1000', time: '7 أيام', size: '4GB', feature: 'يوتيوب متوازن' },
+      { name: 'الباقة الذهبية', price: '2500', time: '15 يوم', size: '12GB', feature: 'سرعة عالية' },
+      { name: 'باقة المهندس VIP', price: '5000', time: '30 يوم', size: '30GB', feature: 'تحميل مفتوح لبعض المواقع' },
+      { name: 'باقة الأعمال', price: '10000', time: '30 يوم', size: '75GB', feature: 'أعلى أولوية في الشبكة' }
     ];
 
-    const placesData = [
-      { id:1, title:'المركز الرئيسي', address:'شارع الزبيري - صنعاء', phone:'+967-1-234567', hours:'8 صباحاً - 10 مساءً', note:'خدمة عملاء ومبيعات' },
-      { id:2, title:'فرع الجامعة', address:'قرب جامعة الرازي', phone:'+967-1-987654', hours:'9 صباحاً - 6 مساءً', note:'خدمة طلابية وعروض خاصة' },
-      { id:3, title:'فرع التحرير', address:'ساحة التحرير - صنعاء', phone:'+967-1-112233', hours:'10 صباحاً - 11 مساءً', note:'مركز توزيع الكروت' },
-      { id:4, title:'فرع السوق المركزي', address:'شارع السوق المركزي', phone:'+967-1-445566', hours:'9 صباحاً - 9 مساءً', note:'عروض يومية' }
-    ];
-
-    /***********************************************
-     * Helpers
-     ***********************************************/
-    const $ = sel => document.querySelector(sel);
-    const $$ = sel => Array.from(document.querySelectorAll(sel));
-
-    function formatCurrency(num){
-      return new Intl.NumberFormat('ar-EG').format(num) + ' ريال';
-    }
-    function parseSize(sizeStr){
-      const num = parseFloat(sizeStr.replace(/[^\d.]/g,''));
-      return isNaN(num) ? 0 : num;
-    }
-
-    /***********************************************
-     * Render Prices Table
-     ***********************************************/
-    const pricesTbody = $('#pricesTable tbody');
-    function renderPrices(data){
-      pricesTbody.innerHTML = '';
-      data.forEach(row=>{
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td style="font-weight:700">${row.name}</td>
-          <td>${formatCurrency(row.price)}</td>
-          <td>${row.validity}</td>
-          <td>${row.size}</td>
-          <td class="muted">${row.desc}</td>
-        `;
-        pricesTbody.appendChild(tr);
-      });
-    }
-    renderPrices(pricesData);
-
-    /***********************************************
-     * Search, Filter, Sort
-     ***********************************************/
-    $('#searchInput').addEventListener('input', applyFilters);
-    $('#filterValidity').addEventListener('change', applyFilters);
-    $('#sortBy').addEventListener('change', applyFilters);
-
-    function applyFilters(){
-      const q = $('#searchInput').value.trim().toLowerCase();
-      const validity = $('#filterValidity').value;
-      const sortBy = $('#sortBy').value;
-
-      let filtered = pricesData.filter(p=>{
-        const text = (p.name + ' ' + p.validity + ' ' + p.size + ' ' + p.desc + ' ' + p.price).toLowerCase();
-        const matchQ = q ? text.includes(q) : true;
-        const matchValidity = validity ? p.validity === validity : true;
-        return matchQ && matchValidity;
-      });
-
-      if(sortBy === 'price-asc') filtered.sort((a,b)=>a.price-b.price);
-      if(sortBy === 'price-desc') filtered.sort((a,b)=>b.price-a.price);
-      if(sortBy === 'size-asc') filtered.sort((a,b)=>parseSize(a.size)-parseSize(b.size));
-      if(sortBy === 'size-desc') filtered.sort((a,b)=>parseSize(b.size)-parseSize(a.size));
-
-      renderPrices(filtered);
-    }
-
-    /***********************************************
-     * Render Places
-     ***********************************************/
-    const placesGrid = $('#placesGrid');
-    function renderPlaces(){
-      placesGrid.innerHTML = '';
-      placesData.forEach(p=>{
-        const card = document.createElement('div');
-        card.className = 'place';
-        card.innerHTML = `
-          <h4>${p.title}</h4>
-          <p>${p.address}</p>
-          <div class="meta">
-            <span class="tag">${p.hours}</span>
-            <span class="tag">${p.phone}</span>
-          </div>
-          <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-start">
-            <button class="btn ghost" data-id="${p.id}" onclick="openPlace(${p.id})"><i class="fa-solid fa-circle-info"></i> تفاصيل</button>
-            <button class="btn" onclick="contactPlace('${p.phone}')"><i class="fa-solid fa-phone"></i> اتصل</button>
-          </div>
-        `;
-        placesGrid.appendChild(card);
-      });
-    }
-    renderPlaces();
-
-    /***********************************************
-     * Modal Logic
-     ***********************************************/
-    const modalBackdrop = $('#modalBackdrop');
-    const modalBody = $('#modalBody');
-    const modalTitle = $('#modalTitle');
-
-    function openPlace(id){
-      const p = placesData.find(x=>x.id===id);
-      if(!p) return;
-      modalTitle.textContent = p.title;
-      modalBody.innerHTML = `
-        <p><strong>العنوان:</strong> ${p.address}</p>
-        <p><strong>الهاتف:</strong> ${p.phone}</p>
-        <p><strong>ساعات العمل:</strong> ${p.hours}</p>
-        <p style="margin-top:8px;color:var(--muted)">${p.note}</p>
+    // رندر الأسعار
+    const tbody = document.getElementById('pricesBody');
+    pricesData.forEach(item => {
+      tbody.innerHTML += `
+        <tr>
+          <td style="font-weight:700">${item.name}</td>
+          <td style="color:var(--accent-1); font-weight:900">${item.price}</td>
+          <td>${item.time}</td>
+          <td><span style="background:var(--glass); padding:4px 8px; border-radius:5px">${item.size}</span></td>
+          <td style="font-size:12px">${item.feature}</td>
+        </tr>
       `;
-      modalBackdrop.style.display = 'flex';
-      modalBackdrop.setAttribute('aria-hidden','false');
-    }
-
-    $('#closeModal').addEventListener('click', closeModal);
-    modalBackdrop.addEventListener('click', (e)=>{
-      if(e.target === modalBackdrop) closeModal();
     });
 
-    function closeModal(){
-      modalBackdrop.style.display = 'none';
-      modalBackdrop.setAttribute('aria-hidden','true');
-    }
-
-    function contactPlace(phone){
-      alert('اتصال إلى ' + phone);
-    }
-
-    /***********************************************
-     * Speed Buttons Interaction
-     ***********************************************/
-    const speedBtns = Array.from(document.querySelectorAll('.speed-btn'));
-    const selectedSpeedEl = $('#selectedSpeed');
-
-    speedBtns.forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        speedBtns.forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        selectedSpeedEl.textContent = btn.textContent;
-      });
-    });
-
-    /***********************************************
-     * Login Button
-     ***********************************************/
-    $('#loginBtn').addEventListener('click', ()=>{
-      const val = $('#cardInput').value.trim();
-      if(!val){
-        alert('يرجى إدخال رقم الكرت أولاً');
-        return;
-      }
-      const speed = selectedSpeedEl.textContent;
-      alert('جاري تسجيل الدخول للكرت: ' + val + '\nالباقة: ' + speed);
-    });
-
-    /***********************************************
-     * Toggle UI
-     ***********************************************/
-    const toggle = $('#toggleUpdates');
-    const knob = $('#toggleKnob');
-    toggle.addEventListener('change', ()=>{
-      if(toggle.checked){
-        knob.style.transform = 'translateX(0)';
-      } else {
-        knob.style.transform = 'translateX(20px)';
-      }
-    });
-    if(!toggle.checked) knob.style.transform = 'translateX(20px)';
-
-    /***********************************************
-     * Navbar Active Link on Scroll
-     ***********************************************/
-    const sections = Array.from(document.querySelectorAll('main section'));
-    const navLinks = Array.from(document.querySelectorAll('.nav-link'));
-
-    function onScroll(){
-      const scrollPos = window.scrollY + 90;
-      let currentId = 'home';
-      sections.forEach(sec=>{
-        if(sec.offsetTop <= scrollPos) currentId = sec.id;
-      });
-      navLinks.forEach(a=>{
-        a.classList.toggle('active', a.getAttribute('href') === '#' + currentId);
-      });
-    }
-    window.addEventListener('scroll', onScroll);
-    onScroll();
-
-    function scrollToSection(id){
-      const el = document.getElementById(id);
-      if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-    }
-    window.scrollToSection = scrollToSection;
-
-    /***********************************************
-     * Quick Actions
-     ***********************************************/
-    document.querySelectorAll('.action').forEach(el=>{
-      el.addEventListener('click', ()=>{
-        const act = el.dataset.action;
-        if(act === 'info') alert('معلومات عن الشبكة: اتصال سريع، باقات متنوعة، دعم 24/7');
-        if(act === 'whatsapp') window.open('https://wa.me/967123456789','_blank');
-        if(act === 'call') alert('جاري فتح تطبيق الاتصال...');
-      });
-    });
-
-    /***********************************************
-     * CTA Subscribe
-     ***********************************************/
-    $('#ctaSubscribe').addEventListener('click', ()=>{
-      const email = prompt('أدخل بريدك للاشتراك في العروض:');
-      if(email) alert('شكراً! تم تسجيل ' + email + ' لتلقي العروض.');
-    });
-
-    /***********************************************
-     * Accessibility: close modal with Esc
-     ***********************************************/
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape') closeModal();
-    });
-
-    /***********************************************
-     * Theme Toggle Logic
-     ***********************************************/
-    const themeToggleBtn = $('#themeToggle');
-    const themeIcon = $('#themeIcon');
-    const themeLabel = $('#themeLabel');
-
-    // Determine initial theme: localStorage -> prefers-color-scheme -> default dark
-    function getInitialTheme(){
-      const saved = localStorage.getItem('sn_theme');
-      if(saved) return saved;
-      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-      return prefersLight ? 'light' : 'dark';
-    }
-
-    function applyTheme(theme){
-      if(theme === 'light'){
-        document.documentElement.setAttribute('data-theme','light');
-        themeIcon.innerHTML = '<i class="fa-solid fa-sun"></i>';
-        themeLabel.textContent = 'فاتح';
-        themeToggleBtn.setAttribute('aria-pressed','true');
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-        themeIcon.innerHTML = '<i class="fa-solid fa-moon"></i>';
-        themeLabel.textContent = 'داكن';
-        themeToggleBtn.setAttribute('aria-pressed','false');
-      }
-      localStorage.setItem('sn_theme', theme);
-    }
-
-    // Toggle handler
-    themeToggleBtn.addEventListener('click', ()=>{
-      const current = localStorage.getItem('sn_theme') || (document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+    // تبديل الثيم
+    const themeBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    themeBtn.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
       const next = current === 'light' ? 'dark' : 'light';
-      applyTheme(next);
+      html.setAttribute('data-theme', next);
+      themeBtn.innerHTML = next === 'light' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
     });
 
-    // Initialize theme on load
-    window.addEventListener('DOMContentLoaded', ()=>{
-      const initial = getInitialTheme();
-      applyTheme(initial);
-    });
-
-    /***********************************************
-     * Small animation init
-     ***********************************************/
-    window.addEventListener('load', ()=>{
-      document.querySelectorAll('.fade-in').forEach((el,i)=>{
-        el.style.animationDelay = (i*120) + 'ms';
+    // تفاعل أزرار السرعة
+    const speedBtns = document.querySelectorAll('.speed-btn');
+    speedBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        speedBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
       });
+    });
+
+    // تسجيل الدخول
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      const code = document.getElementById('cardInput').value;
+      if(code.length < 4) {
+        alert('يرجى إدخال رقم كرت صحيح');
+      } else {
+        alert('جاري التحقق من الكرت: ' + code);
+      }
     });
   </script>
 </body>
 </html>
-
-
